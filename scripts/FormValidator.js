@@ -11,14 +11,14 @@ export default class FormValidator {
     this._buttonElement = this._formElement.querySelector(this._submitBtn);
   }
   //Проверяю методом _hasInvalidInp наличие невалидного поля
-  _hasInvalidInp(inputList) {
-    return inputList.some((inputElement) => {
+  _hasInvalidInp() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
   //Методом _toggleBtn переключаю кнопку отправки
   _toggleBtn() {
-    if (this._hasInvalidInp(this._inputList)) {
+    if (this._hasInvalidInp()) {
       this._buttonElement.disabled = true;
     } else {
       this._buttonElement.disabled = false;

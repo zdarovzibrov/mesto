@@ -30,14 +30,14 @@ const cardsList = [
 const btnAddCard = document.querySelector(".profile__add-button");
 const btnProfileEdit = document.querySelector(".profile__edit-button");
 const popupsElements = document.querySelectorAll(".popup");
-const editProfile = document.querySelector(".popup_type_profile-info");
+const profileEdit = document.querySelector(".popup_type_profile-info");
 export const imagePreview = document.querySelector(".popup_type_image-preview");
 const workInput = document.querySelector(".form__input_user_work");
 const nameInput = document.querySelector(".form__input_user_name");
-const addWorkText = document.querySelector(".profile__work");
-const addNameText = document.querySelector(".profile__name");
+const workTextAdd = document.querySelector(".profile__work");
+const nameTextAdd = document.querySelector(".profile__name");
 const formProfile = document.querySelector(".form_type_profile");
-const addElem = document.querySelector(".popup_type_add-card");
+const elementAdd = document.querySelector(".popup_type_add-card");
 const newElementForm = document.querySelector(".form_type_new-card");
 const elementsContainer = document.querySelector(".card__items");
 const cardName = document.querySelector(".form__input_card_name");
@@ -84,20 +84,19 @@ function closePopup(popup) {
 
 function handleChangeUserProfileInfo(evt) {
   evt.preventDefault();
-  addNameText.textContent = nameInput.value;
-  addWorkText.textContent = workInput.value;
+  nameTextAdd.textContent = nameInput.value;
+  workTextAdd.textContent = workInput.value;
 
-  closePopup(editProfile);
+  closePopup(profileEdit);
 }
 
 function addFormProfileData() {
-  nameInput.value = addNameText.textContent;
-  workInput.value = addWorkText.textContent;
+  nameInput.value = nameTextAdd.textContent;
+  workInput.value = workTextAdd.textContent;
 }
 
 function renderCard(card) {
-  const plusNewCard = new Card(card, cardParams);
-  elementsContainer.prepend(plusNewCard.createCard());
+  elementsContainer.prepend(createCard(card));
 }
 
 function renderCardsList() {
@@ -106,6 +105,11 @@ function renderCardsList() {
 
 renderCardsList();
 
+function createCard(card) {
+  const plusNewCard = new Card(card, cardParams, "#card-template");
+  return plusNewCard.createCard();
+}
+
 function handleAddNewElement(evt) {
   evt.preventDefault();
 
@@ -113,7 +117,7 @@ function handleAddNewElement(evt) {
   renderCard(card);
 
   newElementForm.reset();
-  closePopup(addElem);
+  closePopup(elementAdd);
 }
 
 popupsElements.forEach((popup) => {
@@ -129,11 +133,11 @@ popupsElements.forEach((popup) => {
 
 btnProfileEdit.addEventListener("click", () => {
   addFormProfileData();
-  openPopup(editProfile);
+  openPopup(profileEdit);
 });
 
 btnAddCard.addEventListener("click", () => {
-  openPopup(addElem);
+  openPopup(elementAdd);
 });
 
 newElementForm.addEventListener("submit", handleAddNewElement);
